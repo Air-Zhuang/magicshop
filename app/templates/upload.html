@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <title>Upload</title>
+{% endblock %}
+
+{% block head %}
+    {{ super() }}
+{% endblock %}
+
+
+{% block nav %}
+    {{ super() }}
+{% endblock %}
+{% block content %}
+    <!--个人信息-->
+    <div class="row clearfix" style="margin-top: 70px;">
+		<div class="col-md-3 column">
+		</div>
+		<div class="col-md-6 column">
+            <div class="page-header">
+                <h1 style="text-align: center;">商品上传</h1>
+            </div>
+
+            <form role="form" action="" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <p class="help-block">上传商品封面图(支持png,jpg,gif,jpeg)</p>
+                    <input type="file" id="goods_img" name="goods_img">
+                </div>
+                {% if data.img_error %}
+                    <div class="alert alert-danger">{{ data.img_error }}</div>
+                {% endif %}
+                {% if data.msg %}
+                    <div class="alert alert-success">{{ data.msg }}</div>
+                {% endif %}
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">商品名&nbsp;&nbsp;&nbsp;</span>
+                    <input type="text" class="form-control" id="goods_name" name="goods_name"  placeholder="商品名"
+                           {% if data.last_fill %}value="{{ data.last_fill['goods_name'] }}"{% endif %}>
+                </div>
+                <br>
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">库存&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <input type="text" class="form-control" id="stock" name="stock"  placeholder="库存 数字格式"
+                            {% if data.last_fill %}value="{{ data.last_fill['stock'] }}"{% endif %}>
+                </div>
+                <br>
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">售价&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <input type="text" class="form-control" id="price" name="price"  placeholder="售价 数字格式"
+                            {% if data.last_fill %}value="{{ data.last_fill['price'] }}"{% endif %}>
+                </div>
+                <br>
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">商品详情</span>
+                    <input type="text" class="form-control" id="goods_detail" name="goods_detail"  placeholder="商品详情"
+                            {% if data.last_fill %}value="{{ data.last_fill['goods_detail'] }}"{% endif %}>
+                </div>
+                <br>
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">CPU&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <input type="text" class="form-control" id="cpu" name="cpu"  placeholder="CPU"
+                            {% if data.last_fill %}value="{{ data.last_fill['cpu'] }}"{% endif %}>
+                </div>
+                <br>
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">内存&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <input type="text" class="form-control" id="ram" name="ram"  placeholder="内存"
+                            {% if data.last_fill %}value="{{ data.last_fill['ram'] }}"{% endif %}>
+                </div>
+                <br>
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">硬盘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <input type="text" class="form-control" id="memory" name="memory"  placeholder="硬盘"
+                            {% if data.last_fill %}value="{{ data.last_fill['memory'] }}"{% endif %}>
+                </div>
+                <br>
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">显卡&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <input type="text" class="form-control" id="video_card" name="video_card"  placeholder="显卡"
+                            {% if data.last_fill %}value="{{ data.last_fill['video_card'] }}"{% endif %}>
+                </div>
+                <br>
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">尺寸&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <input type="text" class="form-control" id="size" name="size"  placeholder="尺寸"
+                            {% if data.last_fill %}value="{{ data.last_fill['size'] }}"{% endif %}>
+                </div>
+                <br>
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">品牌&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <input type="text" class="form-control" id="cate_company" name="cate_company"  placeholder="品牌"
+                            {% if data.last_fill %}value="{{ data.last_fill['cate_company'] }}"{% endif %}>
+                </div>
+                <br>
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">种类&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <input type="text" class="form-control" id="cate_outlook" name="cate_outlook"  placeholder="种类 notebook/pc/panel/mobile/other"
+                            {% if data.last_fill %}value="{{ data.last_fill['cate_outlook'] }}"{% endif %}>
+                </div>
+                <br>
+                <button type="submit" class="btn btn-primary btn-lg btn-block">保存</button>
+
+
+			</form>
+		</div>
+		<div class="col-md-3 column">
+		</div>
+	</div>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <title>Magic Shop</title>
+{% endblock %}
+
+{% block head %}
+    {{ super() }}
+{% endblock %}
+
+
+{% block nav %}
+    {{ super() }}
+{% endblock %}
+{% block content %}
+    <!--个人信息-->
+    <div class="row clearfix" style="margin-top: 70px;">
+		<div class="col-md-3 column">
+		</div>
+		<div class="col-md-6 column">
+            <div class="page-header">
+                <h1 style="text-align: center;">个人中心</h1>
+            </div>
+
+            <form role="form" action="" method="post" enctype="multipart/form-data">
+                <div style="text-align: center;">
+                    <img {% if data.user["user_img"] %}src="{{ data.user["user_img"] }}"{% else %}src="../static/img/user/default_user_img.png"{% endif %} class="img-circle" style="height: 170px;width: 170px;">
+                </div>
+                <div class="form-group">
+                    <p class="help-block">修改头像(支持png,jpg,gif,jpeg)</p>
+                    <input type="file" id="user_img" name="user_img">
+                </div>
+                {% if data.img_error %}
+                    <div class="alert alert-danger">{{ data.img_error }}</div>
+                {% endif %}
+                {% if data.msg %}
+                    <div class="alert alert-success">{{ data.msg }}</div>
+                {% endif %}
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">昵称&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <input type="text" class="form-control" id="nickname" name="nickname" {% if data.user["nickname"] %} value="{{ data.user["nickname"] }}"{% endif %} placeholder="昵称">
+                </div>
+                <br>
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">手机号码</span>
+                    <input type="text" class="form-control" id="phone_number" name="phone_number" {% if data.user["phone_number"] %} value="{{ data.user["phone_number"] }}"{% endif %} placeholder="手机号码">
+                </div>
+                <br>
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">邮箱&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <input type="text" class="form-control" id="email" name="email" {% if data.user["email"] %} value="{{ data.user["email"] }}"{% endif %} placeholder="邮箱">
+                </div>
+                <br>
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">收货地址</span>
+                    <input type="text" class="form-control" id="address" name="address" {% if data.user["address"] %} value="{{ data.user["address"] }}"{% endif %} placeholder="收货地址">
+                </div>
+                <br>
+                <button type="submit" class="btn btn-primary btn-lg btn-block">保存</button>
+
+
+			</form>
+		</div>
+		<div class="col-md-3 column">
+		</div>
+	</div>
+    <br><br><br>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

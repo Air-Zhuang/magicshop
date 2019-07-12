@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Register</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+      <script src="../static/js/jquery-2.1.1.js"></script>
+      <script src="../static/js/bootstrap.min.js"></script>
+</head>
+<body style="background: url(../static/img/background/5.jpg) no-repeat;">
+<div class="container">
+    <!--注册 4-4-4-->
+	<div class="row clearfix" style="margin-top:100px;">
+		<div class="col-md-4 column">
+		</div>
+		<div class="col-md-4 column">
+			<form class="form-horizontal" role="form" action="" method="post">
+                <div class="page-header">
+                    <h1 style="text-align:center;color: white;">注册</h1>
+                </div>
+				<div class="input-group input-group-lg">
+                    <span class="input-group-addon">邮箱</span>
+						<input type="email" class="form-control" id="email" name="email" />
+				</div>
+                 <br>
+				<div class="input-group input-group-lg">
+                    <span class="input-group-addon">密码</span>
+						<input type="password" class="form-control" id="password" name="password" />
+				</div>
+                 <br>
+				<button type="submit" class="btn btn-primary btn-lg btn-block">注册</button>
+                <br>
+                <a  href="{{ url_for("web.login") }}"><button type="button" class="btn btn-primary btn-lg btn-block">登录</button></a>
+                {% if register_data %}
+                    <p style="color: white;font-weight: bold;">{{register_data.msg}}</p>
+				{% endif %}
+			</form>
+		</div>
+		<div class="col-md-4 column">
+		</div>
+	</div>
+</div>
+</body>
+</html>

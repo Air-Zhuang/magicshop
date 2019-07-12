@@ -1,0 +1,249 @@
+<!DOCTYPE HTML>
+<html>
+
+{% block title %}
+    <title>Magic Shop</title>
+{% endblock %}
+
+{% block head %}
+    <head>
+          <title>Magic Shop</title>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+          <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+          <link rel="icon" href="../static/img/index/magic_ico.ico" type="img/x-ico" />
+          <script src="../static/js/jquery-2.1.1.js"></script>
+          <script src="../static/js/bootstrap.min.js"></script>
+    </head>
+{% endblock %}
+
+<body>
+<div class="container">
+{% block nav %}
+    <div class="row clearfix">
+		<div class="col-md-12 column">
+			<nav class="navbar navbar-default navbar-inverse navbar-fixed-top" role="navigation">
+				<div class="navbar-header">
+					 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+                    <a class="navbar-brand" href="{{ url_for("web.index") }}">Magic</a>
+				</div>
+
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+                        <li class="active">
+							 <a href="{{ url_for("web.outlook", outlook="notebook") }}">笔记本</a>
+						</li>
+						<li>
+							 <a href="{{ url_for("web.outlook", outlook="panel") }}">平板电脑</a>
+						</li>
+                        <li>
+							 <a href="{{ url_for("web.outlook", outlook="pc") }}">台式机</a>
+						</li>
+						<li class="dropdown">
+							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">品牌<strong class="caret"></strong></a>
+							<ul class="dropdown-menu">
+                                {% for company in data.companys %}
+                                    <li>
+                                         <a href="{{ url_for("web.company", company=company) }}">{{ company }}</a>
+                                    </li>
+                                {% endfor %}
+							</ul>
+						</li>
+					</ul>
+					<form class="navbar-form navbar-left" role="search" id="search" name="search" method="get" action="{{ url_for('web.search') }}">
+						<div class="form-group">
+							<input type="text" id="q" name="q" class="form-control" placeholder="名称模糊搜索" />
+						</div> <button type="submit" class="btn btn-default">搜索</button>
+					</form>
+                    {% if data.user %}
+                        <ul class="nav navbar-nav navbar-right">
+						<li>
+                            <a href="{{ url_for("web.cart",gid=0) }}">
+                                <span class="glyphicon glyphicon-shopping-cart"></span>购物车
+                            </a>
+						</li>
+                        <li>
+							 <img alt="50x50" style="height: 45px;width: 45px;" {% if data.user["user_img"] %}src="{{ data.user["user_img"] }}"{% else %}src="../static/img/user/default_user_img.png"{% endif %} class="img-circle" />
+						</li>
+						<li class="dropdown">
+							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                 {% if data.user["nickname"] %}{{ data.user["nickname"] }}{% else %}{{ data.user["email"] }}{% endif %}
+                             <strong class="caret"></strong></a>
+							<ul class="dropdown-menu">
+								<li>
+                                    <a href="{{ url_for("web.personal_center") }}">个人中心</a>
+								</li>
+                                <li>
+                                    <a href="{{ url_for("web.cart",gid=0) }}">我的购物车</a>
+								</li>
+                                <li>
+                                    <a href="{{ url_for("web.order",order_from="list") }}">我的订单</a>
+								</li>
+                                {% if data.user["id"]==1 %}
+                                <li>
+                                    <a href="{{ url_for("web.upload") }}">上传商品</a>
+								</li>
+                                {% endif %}
+
+                                <li>
+									 <a href="#">修改密码</a>
+								</li>
+								<li class="divider">
+								</li>
+								<li>
+									 <a href="{{ url_for("web.logout") }}">退出登录</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+                    {% else %}
+                        <ul class="nav navbar-nav navbar-right">
+                        <li>
+                             <a href="{{ url_for("web.login") }}">登录</a>
+                        </li>
+                    </ul>
+                    {% endif %}
+
+				</div>
+
+			</nav>
+		</div>
+	</div>
+{% endblock %}
+{% block content %}
+{% endblock %}
+</div>      <!--页脚的container不属于body容器的container-->
+{% block footer %}
+    <div style="background-image: linear-gradient(to top, #3c3c3c,#000);height: 150px;">
+        <div class="container">
+            <div class="row clearfix">
+                <div class="col-md-3 column">
+                    <br>
+                    <br>
+                    <br>
+                    <dl>
+                        <dt style="color: white">
+                            购物指南
+                        </dt>
+                        <dd>
+                            &middot;<a target="_blank" href="" style="font-size: 1px;color: #bebebe;">购物流程</a>
+                        </dd>
+                        <dd>
+                            &middot;<a target="_blank" href="" style="font-size: 1px;color: #bebebe;">会员介绍</a>
+                        </dd>
+                        <dd>
+                            &middot;<a target="_blank" href="" style="font-size: 1px;color: #bebebe;">常见问题</a>
+                        </dd>
+                        <dd>
+                            &middot;<a target="_blank" href="" style="font-size: 1px;color: #bebebe;">联系客服</a>
+                        </dd>
+
+                    </dl>
+                </div>
+                <div class="col-md-3 column">
+                    <br>
+                    <br>
+                    <br>
+                    <dl>
+                        <dt style="color: white">
+                            配送方式
+                        </dt>
+                        <dd>
+                            &middot; <a target="_blank" href="" style="font-size: 1px;color: #bebebe;">上门自提</a>
+                        </dd>
+                        <dd>
+                            &middot; <a target="_blank" href="" style="font-size: 1px;color: #bebebe;">211限时达</a>
+                        </dd>
+                        <dd>
+                            &middot; <a target="_blank" href="" style="font-size: 1px;color: #bebebe;">配送服务查询</a>
+                        </dd>
+                        <dd>
+                            &middot; <a target="_blank" href="" style="font-size: 1px;color: #bebebe;">配送收费标准</a>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="col-md-2 column">
+                    <br>
+                    <br>
+                    <br>
+                    <dl>
+                        <dt style="color: white">
+                            支付方式
+                        </dt>
+                        <dd>
+                            &middot; <a target="_blank" href="" style="font-size: 1px;color: #bebebe;">货到付款</a>
+                        </dd>
+                        <dd>
+                            &middot; <a target="_blank" href="" style="font-size: 1px;color: #bebebe;">在线支付</a>
+                        </dd>
+                        <dd>
+                            &middot; <a target="_blank" href="" style="font-size: 1px;color: #bebebe;">分期付款</a>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="col-md-2 column" style="margin-left: 195px;">
+                    <br>
+                    <br>
+                    <br>
+                    <div class="search-share">
+                        <div class="app-download">
+                            <div>
+                                <strong style="color: white;">关注微信</strong>
+                            </div>
+                        </div>
+                        <div class="share">
+                            <img width="90" height="90" src="../static/img/index/magic_QR_code.png"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="background-image: linear-gradient(to top, #272727,#3c3c3c);
+    height: 100px;">
+        <br>
+        <br>
+        <div class="container" >
+            <div class="row clearfix">
+                <div class="col-md-1 column">
+                    <strong>
+                        <a style="font-size: 1px;color: #bebebe;">关于我们</a>
+                    </strong>
+                </div>
+                <div class="col-md-1 column">
+                    <strong>
+                        <a style="font-size: 1px;color: #bebebe;">联系我们</a>
+                    </strong>
+                </div>
+                <div class="col-md-1 column">
+                    <strong>
+                        <a style="font-size: 1px;color: #bebebe;">商务合作</a>
+                    </strong>
+                </div>
+                <div class="col-md-1 column">
+                    <strong>
+                        <a style="font-size: 1px;color: #bebebe;">VIP服务</a>
+                    </strong>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row clearfix">
+                <div class="w-1000 copyright" align="left">
+                    <font color="#bebebe" size="1px">
+                        &nbsp;&nbsp;&nbsp;Copyright &copy; 2013-2018 <strong><a style="color: #bebebe;" href="//www.magicshop.top/" target="_blank">Magicshop</a>
+                    </strong>&nbsp;<strong>
+                        <a href="//www.magicshop.top/" target="_blank" style="color: #bebebe;">www.magicshop.top</a></strong> All
+                        Rights Reserved. 备案号：XXXXXXXXXXX
+                    </font>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+</body>
+
+{% block scripts %}
+{% endblock %}
+</html>

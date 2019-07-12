@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <title>Cart</title>
+{% endblock %}
+
+{% block head %}
+    {{ super() }}
+{% endblock %}
+
+
+{% block nav %}
+    {{ super() }}
+{% endblock %}
+{% block content %}
+    <!--购物车详情-->
+    <div class="row clearfix" style="margin-top: 70px;">
+		<div class="col-md-12 column">
+        <h1 style="text-align: center;">
+        {% if data.user["nickname"] %}{{ data.user["nickname"] }}{% else %}{{ data.user["email"] }}{% endif %}的购物车
+        </h1>
+            <h5 class="page-header"></h5>
+
+
+            {% for i in data.data %}
+                <div class="media">
+                     <a href="{{ url_for("web.detail", gid= i['gid']|int ) }}" class="pull-left"><img style="width: 140px;height: 140px;" src="{{ i['goods_img'] }}" class="img-thumbnail" alt='' /></a>
+                    <div class="media-body">
+                        <h3 class="media-heading">
+                            {{ i['goods_name'] }}
+                        </h3>
+                    </div>
+                    <br>
+                    <strong class="text-info">CPU：{{ i['cpu'] }}&nbsp;&nbsp;&nbsp;&nbsp;内存：{{ i['ram'] }}&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+                    <br>
+                    <strong class="text-info">硬盘：{{ i['memory'] }}&nbsp;&nbsp;&nbsp;&nbsp;显卡：{{ i['video_card'] }}&nbsp;&nbsp;&nbsp;&nbsp;尺寸：{{ i['size'] }}&nbsp;&nbsp;&nbsp;&nbsp;厂家：{{ i['cate_company'] }}</strong>
+                    <br>
+                    <div style="text-align: right;"><strong>数量：{{ i['num'] }}&nbsp;&nbsp;&nbsp;&nbsp;单价：{{ i['price'] }}&nbsp;&nbsp;&nbsp;&nbsp;总价：{{ i['total_price'] }}</strong></div>
+                    <div style="text-align: right;">
+                        <a href="{{ url_for("web.cart",gid=i['gid']|int) }}" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-plus"></span></a>
+                        {% if i['num']!=1 %}
+                            <a href="{{ url_for("web.cart",gid=i['gid']|int*-1) }}" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-minus"></span></a>
+                        {% endif %}
+                        <a href="{{ url_for("web.cart_delete",gid=i['gid']|int) }}" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
+                    </div>
+                </div>
+                <h5 class="page-header"></h5>
+            {% endfor %}
+
+
+			<div class="media">
+                <div>
+                    <h3 class="media-heading">我的收货地址:&nbsp;&nbsp;
+                    <small class="text-info" style="font-size: 20px;">{{ data.user["address"] }}</small>&nbsp;&nbsp;
+                    <a href="{{ url_for("web.personal_center") }}" style="font-size: 15px; text-decoration: underline;" class="text-warning">去修改</a></h3>
+                </div>
+                <div style="text-align: right;">
+                    <a href="{{ url_for("web.cart_delete",gid="delete_all") }}"><button type="button" class="btn btn-primary btn-lg" style="text-shadow: black 5px 3px 3px;">
+                        <span class="glyphicon glyphicon-remove"></span>清空购物车
+                    </button></a>
+                    <a href="{{ url_for("web.order",order_from="from_cart") }}"><button type="button" class="btn btn-primary btn-lg" style="text-shadow: black 5px 3px 3px;">
+                        <span class="glyphicon glyphicon-usd"></span>下订单
+                    </button></a>
+                </div>
+			</div>
+            <h5 class="page-header"></h5>
+
+
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

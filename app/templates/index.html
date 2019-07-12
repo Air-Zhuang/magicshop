@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <title>Magic Shop</title>
+{% endblock %}
+
+{% block head %}
+    {{ super() }}
+{% endblock %}
+
+
+{% block nav %}
+    {{ super() }}
+{% endblock %}
+{% block content %}
+<!--轮播图-->
+<div class="row clearfix" style="margin-top: 70px;">
+    <div class="col-md-12 column">
+        <div class="carousel slide" id="carousel-21802">
+            <ol class="carousel-indicators">
+                <li class="active" data-slide-to="0" data-target="#carousel-21802">
+                </li>
+                <li data-slide-to="1" data-target="#carousel-21802">
+                </li>
+                <li data-slide-to="2" data-target="#carousel-21802">
+                </li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="item active">
+                    <a href="{{ url_for("web.detail", gid= data.banner[0]['id']|int ) }}">
+                    <img style="height: 356px;margin: 0 auto; " alt="" src="{{ data.banner[0]['goods_img'] }}" />
+                    </a>
+                    <div class="carousel-caption">
+                        <h4>
+                            {{ data.banner[0]['goods_name'] }}
+                        </h4>
+                        <p>
+                            {{ data.banner[0]['goods_detail'] }}
+                        </p>
+                    </div>
+                </div>
+                <div class="item">
+                    <a href="{{ url_for("web.detail", gid= data.banner[1]['id']|int ) }}">
+                    <img style="height: 356px;margin: 0 auto; " alt="" src="{{ data.banner[1]['goods_img'] }}" />
+                    </a>
+                    <div class="carousel-caption">
+                        <h4>
+                            {{ data.banner[1]['goods_name'] }}
+                        </h4>
+                        <p>
+                            {{ data.banner[1]['goods_detail'] }}
+                        </p>
+                    </div>
+                </div>
+                <div class="item">
+                    <a href="{{ url_for("web.detail", gid= data.banner[2]['id']|int ) }}">
+                    <img style="height: 356px;margin: 0 auto; " alt="" src="{{ data.banner[2]['goods_img'] }}" />
+                    </a>
+                    <div class="carousel-caption">
+                        <h4>
+                            {{ data.banner[2]['goods_name'] }}
+                        </h4>
+                        <p>
+                            {{ data.banner[2]['goods_detail'] }}
+                        </p>
+                    </div>
+                </div>
+            </div> <a class="left carousel-control" href="#carousel-21802" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a> <a class="right carousel-control" href="#carousel-21802" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+        </div>
+    </div>
+</div>
+<!--详情-->
+<div class="row clearfix" style="margin-top: 10px;">
+
+    {% for i in data.data %}
+        <div class="col-md-4">
+            <div class="thumbnail" style="height: 565px;">
+                <div style="height: 350px;">
+                <a href="{{ url_for("web.detail", gid= i['id']|int ) }}">
+                <img alt="300x200" src="{{ i['goods_img'] }}" />
+                </a>
+                </div>
+                <div class="caption">
+                    <h3 style="overflow: hidden;text-overflow: ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;">
+                        {{ i['goods_name'] }}
+                    </h3>
+                    <p style="overflow: hidden;text-overflow: ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;">
+                        {{ i['goods_detail'] }}
+                    </p>
+                    <p>
+                         <a class="btn btn-primary" href="{{ url_for("web.detail", gid= i['id']|int ) }}">详情</a>
+                            {#<a class="btn" href="#">Action</a>#}
+                    </p>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+<!--分页-->
+<br><br>
+<div style="display: table;margin:auto;">
+    {% if data.page['cate']=='index' %}
+        <div style="float: left;">
+            <form  id="paging" name="paging" method="get" action="{{ url_for('web.index') }}">
+                <input type="text" id="from" name="from" class="hide" value="{{ data.page['from'] }}" />
+                    <input type="text" id="paging" name="paging" class="hide" value="last_page" />
+                <button type="submit" class="btn btn-default"><strong>上一页</strong></button>
+            </form>
+        </div>
+            {% for i in data.page['pagelist'] %}
+                <div style="float: left;">
+                    <form  id="paging" name="paging" method="get" action="{{ url_for('web.index') }}">
+                        <input type="text" id="paging" name="paging" class="hide" value="{{ i }}" />
+                            <button type="submit" class="btn btn-default"><strong>&nbsp;&nbsp;&nbsp;&nbsp;{{ i }}&nbsp;&nbsp;&nbsp;&nbsp;</strong></button>
+                    </form>
+                </div>
+            {% endfor %}
+        <div style="float: left;">
+            <form  id="paging" name="paging" method="get" action="{{ url_for('web.index') }}">
+                <input type="text" id="from" name="from" class="hide" value="{{ data.page['from'] }}" />
+                    <input type="text" id="paging" name="paging" class="hide" value="next_page" />
+                        <button type="submit" class="btn btn-default"><strong>下一页</strong></button>
+            </form>
+        </div>
+    {% endif %}
+    {% if data.page['cate']=='outlook' %}
+        <div style="float: left;">
+            <form  id="paging" name="paging" method="get" action="{{ url_for("web.outlook", outlook=data.page['cate_para']) }}">
+                <input type="text" id="from" name="from" class="hide" value="{{ data.page['from'] }}" />
+                    <input type="text" id="paging" name="paging" class="hide" value="last_page" />
+                        <button type="submit" class="btn btn-default"><strong>上一页</strong></button>
+            </form>
+        </div>
+            {% for i in data.page['pagelist'] %}
+                <div style="float: left;">
+                    <form  id="paging" name="paging" method="get" action="{{ url_for("web.outlook", outlook=data.page['cate_para']) }}">
+                        <input type="text" id="paging" name="paging" class="hide" value="{{ i }}" />
+                            <button type="submit" class="btn btn-default"><strong>&nbsp;&nbsp;&nbsp;&nbsp;{{ i }}&nbsp;&nbsp;&nbsp;&nbsp;</strong></button>
+                    </form>
+                </div>
+            {% endfor %}
+        <div style="float: left;">
+            <form  id="paging" name="paging" method="get" action="{{ url_for("web.outlook", outlook=data.page['cate_para']) }}">
+                <input type="text" id="from" name="from" class="hide" value="{{ data.page['from'] }}" />
+                    <input type="text" id="paging" name="paging" class="hide" value="next_page" />
+                        <button type="submit" class="btn btn-default"><strong>下一页</strong></button>
+            </form>
+        </div>
+    {% endif %}
+    {% if data.page['cate']=='company' %}
+        <div style="float: left;">
+            <form  id="paging" name="paging" method="get" action="{{ url_for("web.company", company=data.page['cate_para']) }}">
+                <input type="text" id="from" name="from" class="hide" value="{{ data.page['from'] }}" />
+                    <input type="text" id="paging" name="paging" class="hide" value="last_page" />
+                        <button type="submit" class="btn btn-default"><strong>上一页</strong></button>
+            </form>
+        </div>
+            {% for i in data.page['pagelist'] %}
+                <div style="float: left;">
+                    <form  id="paging" name="paging" method="get" action="{{ url_for("web.company", company=data.page['cate_para']) }}">
+                        <input type="text" id="paging" name="paging" class="hide" value="{{ i }}" />
+                            <button type="submit" class="btn btn-default"><strong>&nbsp;&nbsp;&nbsp;&nbsp;{{ i }}&nbsp;&nbsp;&nbsp;&nbsp;</strong></button>
+                    </form>
+                </div>
+            {% endfor %}
+        <div style="float: left;">
+            <form  id="paging" name="paging" method="get" action="{{ url_for("web.company", company=data.page['cate_para']) }}">
+                <input type="text" id="from" name="from" class="hide" value="{{ data.page['from'] }}" />
+                    <input type="text" id="paging" name="paging" class="hide" value="next_page" />
+                        <button type="submit" class="btn btn-default"><strong>下一页</strong></button>
+            </form>
+        </div>
+    {% endif %}
+</div>
+<!--页脚-->
+<br><br><br>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

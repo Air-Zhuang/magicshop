@@ -1,0 +1,7 @@
+flask
+requests
+wtforms
+flask-sqlalchemy
+pymysql
+flask-login
+uwsgi
