@@ -10,3 +10,4 @@ if __name__ == '__main__':
         app.run(host='172.19.91.71', port=8999, debug=app.config['DEBUG'])
     else:
         app.run(host='127.0.0.1', debug=app.config['DEBUG'])
+
